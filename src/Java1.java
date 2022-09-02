@@ -427,10 +427,8 @@ public abstract class Java1 extends JFrame
      * @throws IOException
      */
     protected void drawImage(String pathname, int x, int y) throws IOException {
-        Image image;
-        if (images.containsKey(pathname)) {
-            image = images.get(pathname);
-        } else {
+        var image = images.get(pathname);
+        if(image == null) {
             image = ImageIO.read(new File(pathname));
             images.put(pathname, image);
         }
