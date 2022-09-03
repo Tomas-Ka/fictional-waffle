@@ -889,25 +889,35 @@ public abstract class Java1 extends JFrame
          * @see #pop()
          */
         public void LString(String string, double angle, int length) {
-            for (int i = 0; i < string.length(); i++)
-                if (string.charAt(i) == 'F' || string.charAt(i) == 'G')
-                    // move forwards and draw line
-                    move(length);
-                else if (string.charAt(i) == 'f')
-                    // "jump" forwards, nor drawing a line
-                    moveX(length);
-                else if (string.charAt(i) == '+')
-                    // turn left
-                    turnLeft(angle);
-                else if (string.charAt(i) == '-')
-                    // turn rigth
-                    turnRight(angle);
-                else if (string.charAt(i) == '[')
-                    // save position to stack
-                    push();
-                else if (string.charAt(i) == ']')
-                    // recover position from stack
-                    pop();
+            for (int i = 0; i < string.length(); i++) {
+                switch (string.charAt(i)) {
+                    case 'F':
+                    case 'G':
+                        // move forward and draw line
+                        move(length);
+                        break;
+                    case 'f':
+                        // "jump" forward without drawing a line
+                        moveX(length);
+                        break;
+                    case '+':
+                        // turn left
+                        turnLeft(angle);
+                        break;
+                    case '-':
+                        // turn right
+                        turnRight(angle);
+                        break;
+                    case '[':
+                        // save position to stack
+                        push();
+                        break;
+                    case ']':
+                        // recover position from stack
+                        pop();
+                        break;
+                }
+            }
         }
 
         /**
