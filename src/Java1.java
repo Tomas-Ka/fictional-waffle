@@ -21,9 +21,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 // import java.io.InputStream;
-// import java.util.List;
 import java.util.HashMap;
 import java.util.Stack;
+import java.util.Objects;
 
 import javax.imageio.ImageIO;
 // import javax.sound.sampled.AudioFormat;
@@ -50,7 +50,8 @@ public abstract class Java1 extends JFrame
     private static final long serialVersionUID = 1L;
 
     Turtle turtle;
-    HashMap<String, Image> images = new HashMap<String, Image>();
+    HashMap<String, BufferedImage> images = new HashMap<String, BufferedImage>();
+    HashMap<String, AudioObject> audioObjects = new HashMap<String, AudioObject>();
     BufferedImage bi;
     JPanel pane;
     Graphics2D g2;
@@ -568,14 +569,30 @@ public abstract class Java1 extends JFrame
      */
     protected void play(String filename)
             throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        // loads a file from the local filesystem
-        File f = new File("./" + filename);
-        // makes the file into a audio stream
-        AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
-        // gets an audio clip from the audio stream
-        Clip clip = AudioSystem.getClip();
+
+        Clip clip;
+        AudioInputStream stream;
+
+        // try to get the audioObject from the hasmap
+        AudioObject audioObject = audioObjects.get(filename);
+        if(audioObject == null) {
+            // If it exists loads a file from the local filesystem
+            File f = new File("./" + filename);
+            // makes the file into a audio stream
+            stream = AudioSystem.getAudioInputStream(f.toURI().toURL());
+            // gets an audio clip from the audio stream
+            clip = AudioSystem.getClip();
+            // add the object to the hashmap
+            audioObjects.put(filename, new AudioObject(clip, stream));
+
+        } else {
+            // if it doesn't exist
+            clip = audioObject.getClip();
+            stream = audioObject.getStream();
+        }
+
         // "opens" (sets up) the clip so that it can be played
-        clip.open(audioIn);
+        clip.open(stream);
         // actually play the sound
         clip.start();
     }
@@ -969,6 +986,36 @@ public abstract class Java1 extends JFrame
                 sys = newSys;
             }
             LString(sys, angle, length);
+        }
+    }
+
+    /**
+     * A wrapper class that just holds an Clip and AudioInputStream, so that it can be placed in a hasmap
+     * @author Tomas
+     *
+     */
+    public class AudioObject {
+        private final Clip clip;
+        private final AudioInputStream stream;
+        private int hashCode;
+
+        public AudioObject(Clip clip, AudioInputStream stream) {
+            this.clip = clip;
+            this.stream = stream;
+            this.hashCode = Objects.hash(clip, stream);
+        }
+
+        public Clip getClip() {
+            return clip;
+        }
+
+        public AudioInputStream getStream() {
+            return stream;
+        }
+
+        @Override
+        public int hashCode() {
+            return this.hashCode;
         }
     }
 }
