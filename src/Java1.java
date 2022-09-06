@@ -23,7 +23,6 @@ import java.io.IOException;
 // import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Stack;
-import java.util.Objects;
 
 import javax.imageio.ImageIO;
 // import javax.sound.sampled.AudioFormat;
@@ -51,7 +50,7 @@ public abstract class Java1 extends JFrame
 
     Turtle turtle;
     HashMap<String, BufferedImage> images = new HashMap<String, BufferedImage>();
-    HashMap<String, AudioObject> audioObjects = new HashMap<String, AudioObject>();
+    HashMap<String, AudioInputStream> audioObjects = new HashMap<String, AudioInputStream>();
     BufferedImage bi;
     JPanel pane;
     Graphics2D g2;
@@ -569,32 +568,28 @@ public abstract class Java1 extends JFrame
      */
     protected void play(String filename)
             throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-
-        Clip clip;
-        AudioInputStream stream;
-
-        // try to get the audioObject from the hasmap
-        AudioObject audioObject = audioObjects.get(filename);
-        if(audioObject == null) {
-            // If it exists loads a file from the local filesystem
-            File f = new File("./" + filename);
-            // makes the file into a audio stream
-            stream = AudioSystem.getAudioInputStream(f.toURI().toURL());
-            // gets an audio clip from the audio stream
-            clip = AudioSystem.getClip();
-            // add the object to the hashmap
-            audioObjects.put(filename, new AudioObject(clip, stream));
-
-        } else {
-            // if it doesn't exist
-            clip = audioObject.getClip();
-            stream = audioObject.getStream();
-        }
-
-        // "opens" (sets up) the clip so that it can be played
-        clip.open(stream);
-        // actually play the sound
-        clip.start();
+        
+        
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // create a new empty clip object
+                    Clip clip = AudioSystem.getClip();
+                    
+                    // load a file and process it as an input stream
+                    File f = new File("./" + filename);
+                    AudioInputStream stream = AudioSystem.getAudioInputStream(f.toURI().toURL());
+                    
+                    // sets up the click and then plays the sound
+                    clip.open(stream);
+                    clip.start();
+                    
+                } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+                    System.out.println("play sound error: " + e.getMessage() + " for " + filename);
+                }
+            }
+        }).start();
     }
 
     /**
@@ -673,33 +668,59 @@ public abstract class Java1 extends JFrame
     /** Event handler that checks a few specific keys and sets flags if they are pressed */
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_UP) keyUp = true;
-        if (e.getKeyCode() == KeyEvent.VK_DOWN) keyDown = true;
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) keyLeft = true;
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) keyRight = true;
-        if (e.getKeyCode() == KeyEvent.VK_W) keyW = true;
-        if (e.getKeyCode() == KeyEvent.VK_Z) keyZ = true;
-        if (e.getKeyCode() == KeyEvent.VK_A) keyA = true;
-        if (e.getKeyCode() == KeyEvent.VK_S) keyS = true;
-        if (e.getKeyCode() == KeyEvent.VK_D) keyD = true;
-        if (e.getKeyCode() == KeyEvent.VK_SPACE) keySpace = true;
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) keyEnter = true;
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP:
+                keyUp = true;
+            case KeyEvent.VK_DOWN:
+                keyDown = true;
+            case KeyEvent.VK_LEFT:
+                keyLeft = true;
+            case KeyEvent.VK_RIGHT:
+                keyRight = true;
+            case KeyEvent.VK_W:
+                keyW = true;
+            case KeyEvent.VK_Z:
+                keyZ = true;
+            case KeyEvent.VK_A:
+                keyA = true;
+            case KeyEvent.VK_S:
+                keyS = true;
+            case KeyEvent.VK_D:
+                keyD = true;
+            case KeyEvent.VK_SPACE:
+                keySpace = true;
+            case KeyEvent.VK_ENTER:
+                keyEnter = true;
+        }
     }
 
     /** Event handler that checks a few specific keys and sets flags if they have been released */
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_UP) keyUp = false;
-        if (e.getKeyCode() == KeyEvent.VK_DOWN) keyDown = false;
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) keyLeft = false;
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) keyRight = false;
-        if (e.getKeyCode() == KeyEvent.VK_W) keyW = false;
-        if (e.getKeyCode() == KeyEvent.VK_Z) keyZ = false;
-        if (e.getKeyCode() == KeyEvent.VK_A) keyA = false;
-        if (e.getKeyCode() == KeyEvent.VK_S) keyS = false;
-        if (e.getKeyCode() == KeyEvent.VK_D) keyD = false;
-        if (e.getKeyCode() == KeyEvent.VK_SPACE) keySpace = false;
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) keyEnter = false;
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP:
+                keyUp = false;
+            case KeyEvent.VK_DOWN:
+                keyDown = false;
+            case KeyEvent.VK_LEFT:
+                keyLeft = false;
+            case KeyEvent.VK_RIGHT:
+                keyRight = false;
+            case KeyEvent.VK_W:
+                keyW = false;
+            case KeyEvent.VK_Z:
+                keyZ = false;
+            case KeyEvent.VK_A:
+                keyA = false;
+            case KeyEvent.VK_S:
+                keyS = false;
+            case KeyEvent.VK_D:
+                keyD = false;
+            case KeyEvent.VK_SPACE:
+                keySpace = false;
+            case KeyEvent.VK_ENTER:
+                keyEnter = false;
+        }
     }
 
     /** Event handler for when a key is pressed in a text field */
@@ -989,33 +1010,4 @@ public abstract class Java1 extends JFrame
         }
     }
 
-    /**
-     * A wrapper class that just holds an Clip and AudioInputStream, so that it can be placed in a hasmap
-     * @author Tomas
-     *
-     */
-    public class AudioObject {
-        private final Clip clip;
-        private final AudioInputStream stream;
-        private int hashCode;
-
-        public AudioObject(Clip clip, AudioInputStream stream) {
-            this.clip = clip;
-            this.stream = stream;
-            this.hashCode = Objects.hash(clip, stream);
-        }
-
-        public Clip getClip() {
-            return clip;
-        }
-
-        public AudioInputStream getStream() {
-            return stream;
-        }
-
-        @Override
-        public int hashCode() {
-            return this.hashCode;
-        }
-    }
 }

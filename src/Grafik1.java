@@ -21,12 +21,14 @@ public class Grafik1 extends Java1{
 	@Override
 	protected void loop() {
 		if(!run_once) {
+		      run_once = true;
 			//turtle.move(1);
 			//fillCircle(50, 50, 100, Color.red);
 			//Sturtle.Fractal("1213131213", "1,F,2,+,3,-,4,f", 4, 10, 50);
 			//turtle.LString("F+F-F-F+F-", 70, 50);
 		}
 		//fillCircle(50, 50, 100, Color.red);
+		
 		
 		
 		if(right) {
@@ -42,6 +44,8 @@ public class Grafik1 extends Java1{
 			right = !right;
 			x = 0;
 		}
+		
+		fillRectangle(x, 100, 50, 50, Color.black);
 		
 		/*
 		fillRectangle(0, 0, width, height, Color.black); //black background
@@ -66,10 +70,18 @@ public class Grafik1 extends Java1{
 		
 		try {
 			drawImage("astley2.jpg", 300, 00);
+			drawImage("astley2.jpg", 400, 10);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
+        try {
+            play("kaboom.wav");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 		
 		//Bouncing ball
 		//fillCircle(x, 50, 50, Color.red);
