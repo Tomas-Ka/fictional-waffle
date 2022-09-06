@@ -21,7 +21,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 // import java.io.InputStream;
-import java.util.ArrayList;
 // import java.util.List;
 import java.util.HashMap;
 import java.util.Stack;
@@ -51,8 +50,6 @@ public abstract class Java1 extends JFrame
     private static final long serialVersionUID = 1L;
 
     Turtle turtle;
-    ArrayList<String> imStrList = new ArrayList<String>();
-    ArrayList<Image> imList = new ArrayList<Image>();
     HashMap<String, Image> images = new HashMap<String, Image>();
     BufferedImage bi;
     JPanel pane;
@@ -79,7 +76,8 @@ public abstract class Java1 extends JFrame
     Color bgColor = Color.BLACK;
     protected int mouseX = 0, mouseY = 0;
     protected boolean mouseDown = false;
-
+    
+    
     /**
      * Shows an alert box with specified message
      *
@@ -124,7 +122,7 @@ public abstract class Java1 extends JFrame
 
     /**
      * Opens a prompt with an input field and a message. When OK is pressed it returns the entered
-     * string parsed as an integer
+     * string parsed as an integer.
      *
      * @param message the message in the input prompt
      * @return user's input
@@ -135,7 +133,7 @@ public abstract class Java1 extends JFrame
 
     /**
      * Opens a prompt with an input field, a specified title and a message. When OK is pressed it
-     * returns the entered string parsed as an integer
+     * returns the entered string parsed as an integer.
      *
      * @param message the message in the input prompt
      * @param title the title of the prompt window
@@ -161,7 +159,7 @@ public abstract class Java1 extends JFrame
      * @param color the color for the half shading
      */
     protected void fillT(int x1, int y1, int x2, int y2, int x3, int y3, Color color) {
-        // TODO; there is a strange error in this code for when x1 is the largest.
+        // FIXME; there is a strange error in this code for when x1 is the largest.
         // for some reason it's causing y2 to be equal to x1
 
         g2.setColor(color); // set the pen color to use given value
@@ -537,8 +535,7 @@ public abstract class Java1 extends JFrame
 
     /** Stops all graphics updates */
     protected void stop() {
-        // the game still works in the background,
-        // it just doesn't display any changes to the screen
+        // stops the loop function from running
         timer.stop();
     }
 
