@@ -6,6 +6,7 @@ public class Fractals extends Java1 {
 	private double x = 500;
 	private double y = 500;
 	
+	@SuppressWarnings("unused")
 	private Color Green = new Color(0, 100, 0); //green color
 	
 	private static final long serialVersionUID = 1L;
@@ -31,11 +32,13 @@ public class Fractals extends Java1 {
 		turtle.angle = 90;
 		
 		//Koch curve
+		/*
 		turtle.x = 200;
 		turtle.y = 500;
 		turtle.angle=0;
 		turtle.Fractal("F", "F,F+F-F-F+F,+,+,[,[,-,-,],]", 4, 90, 7);
-
+		*/
+		
 		//Fractal (Binary) Tree
 		/*
 		turtle.x = 500;
@@ -54,18 +57,18 @@ public class Fractals extends Java1 {
 		
 		//Sierpiński arrowhead curve
 		/*
-		turtle.x = 300;
-		turtle.y = 450;
-		turtle.angle = 60;
-		turtle.Fractal("F", "F,G-F-G,G,F+G+F,[,[,+,+,-,-,],]", 7, 60, 3);
+		turtle.x = 250;
+		turtle.y = 480;
+		turtle.angle = 0;
+		turtle.Fractal("F", "F,G-F-G,G,F+G+F,[,[,+,+,-,-,],]", 8, 60, 2);
 		*/
 		
 		//Dragon curve
 		/*
-		turtle.x = 400;
-		turtle.y = 150;
+		turtle.x = 250;
+		turtle.y = 200;
 		turtle.angle = 90;
-		turtle.Fractal("F", "F,F+G,G,F-G,[,[,+,+,-,-,],]", 13, 90, 4);
+		turtle.Fractal("F", "F,F+G,G,F-G,[,[,+,+,-,-,],]", 14, 90, 4);
 		*/
 		
 		//Fractal Plant (Barnsley Fern)

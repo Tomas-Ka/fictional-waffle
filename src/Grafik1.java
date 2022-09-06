@@ -8,7 +8,9 @@ public class Grafik1 extends Java1{
 	private boolean right = true;
 	private boolean run_once = false;
 	
+	@SuppressWarnings("unused")
 	private Color Green = new Color(0, 100, 0); //green color
+	@SuppressWarnings("unused")
 	private Color Brown = new Color(92, 64, 51); //brown color
 	
 	public static void main(String[] args) {
@@ -63,8 +65,7 @@ public class Grafik1 extends Java1{
 		
 		
 		try {
-			//drawImage2("astley2.jpg", 300, 00);
-			drawImage("rick.webp", 300, 00);
+			drawImage("astley2.jpg", 300, 00);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
