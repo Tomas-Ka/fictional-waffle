@@ -20,6 +20,8 @@ public class Grafik1 extends Java1{
 
 	@Override
 	protected void loop() {
+	    setDelay(100);
+	    clear();
 		if(!run_once) {
 		      run_once = true;
 			//turtle.move(1);
@@ -28,24 +30,24 @@ public class Grafik1 extends Java1{
 			//turtle.LString("F+F-F-F+F-", 70, 50);
 		}
 		//fillCircle(50, 50, 100, Color.red);
-		
-		
-		
-		if(right) {
-			x += 5;
-		} else {
-			x -= 5;
+		if(!keySpace) {
+           if(right) {
+                x += 5;
+            } else {
+                x -= 5;
+            }
+            
+            if(right && x>=width-50) {
+                right = !right;
+                x = width-50;
+            } else if (!right && x<=0) {
+                right = !right;
+                x = 0;
+            }
 		}
+
 		
-		if(right && x>=width-50) {
-			right = !right;
-			x = width-50;
-		} else if (!right && x<=0) {
-			right = !right;
-			x = 0;
-		}
-		
-		fillRectangle(x, 100, 50, 50, Color.black);
+		//fillRectangle(x, 100, 50, 50, Color.black);
 		
 		/*
 		fillRectangle(0, 0, width, height, Color.black); //black background
@@ -65,9 +67,9 @@ public class Grafik1 extends Java1{
 		*/
 		
 		//half shaded triangle test
-		//fillT(500, 200, 100, 100, 110, 100, Brown);
+		fillT(x, 300, 100, 100, 500, 200, Brown);
 		
-		
+		/*
 		try {
 			drawImage("astley2.jpg", 300, 00);
 			drawImage("astley2.jpg", 400, 10);
@@ -82,7 +84,8 @@ public class Grafik1 extends Java1{
         } catch (Exception e) {
             e.printStackTrace();
         }
-		
+		*/
+        
 		//Bouncing ball
 		//fillCircle(x, 50, 50, Color.red);
 		

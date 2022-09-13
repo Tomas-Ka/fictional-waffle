@@ -144,83 +144,6 @@ public abstract class Java1 extends JFrame
                 JOptionPane.showInputDialog(null, message, title, JOptionPane.QUESTION_MESSAGE));
     }
 
-    /**
-     * Draws a half shaded Triangle with corners at the three points specified, as well as the color
-     * specified. The points can be in any order
-     *
-     * <p>This is currently slightly broken
-     *
-     * @param x1 the x value of point one
-     * @param y1 the y value of point one
-     * @param x2 the x value of point two
-     * @param y2 the y value of point two
-     * @param x3 the x value of point three
-     * @param y3 the y value of point three
-     * @param color the color for the half shading
-     */
-    protected void fillT(int x1, int y1, int x2, int y2, int x3, int y3, Color color) {
-        // FIXME; there is a strange error in this code for when x1 is the largest.
-        // for some reason it's causing y2 to be equal to x1
-
-        g2.setColor(color); // set the pen color to use given value
-
-        int[] listx = {x1, x2, x3}; // store x and y values in list
-        int[] listy = {y1, y2, y3};
-
-        // goes through number by number and sorts both list from lowest
-        // to highest x value.
-        // i.e. listx[0] < listx[1] < listx[2]
-        if (x2 < x1) swap(listx, listy, 0, 1);
-
-        if (x3 < x1) swap(listx, listy, 0, 2);
-
-        if (x3 < x2) swap(listx, listy, 1, 2);
-
-        // equation of a straight line
-        // y=kx+m or y=mx+c
-
-        // angle of line between point 1 and point 2
-        float k2 = (listy[1] - listy[0]) / (float) (listx[1] - listx[0]);
-        // angle of line between point 1 and point 3
-        float k1 = (listy[2] - listy[0]) / (float) (listx[2] - listx[0]);
-        // angle of line between point 2 and point 3
-        float k3 = (listy[2] - listy[1]) / (float) (listx[2] - listx[1]);
-
-        // where the line equation between point 1 and point 3 intersects the y axis
-        int m1 = listy[0] - (int) (k1 * listx[0]);
-        // where the line equation between point 1 and point 2 intersects the y axis
-        int m2 = listy[0] - (int) (k2 * listx[0]);
-        // where the line equation between point 2 and point 3 intersects the y axis
-        int m3 = listy[2] - (int) (k3 * listx[2]);
-
-        // loops through x values between point 1 x and point 2 x, skipping every other x value
-        for (int i = listx[0]; i < listx[1]; i += 2)
-            // draws a line at x=i
-            // both y values are calculated with the straight line equation
-            g2.drawLine(i, (int) (i * k1) + m1, i, (int) (i * k2) + m2);
-
-        // same loop as the one above except with points 2 and 3 x values
-        for (int i = listx[1]; i < listx[2]; i += 2)
-            g2.drawLine(i, (int) (i * k1) + m1, i, (int) (i * k3) + m3);
-    }
-
-    /**
-     * Swaps the value at the first index with the value from the second index in both lists. This
-     * function directly modifies the object in memory and won't return anything. Is used in fillT()
-     *
-     * @param list1 the list to swap values in
-     * @param list2 the other list to swap values in
-     * @param index1 the index of the first value to be swapped
-     * @param index2 the index of the other value to be swapped
-     */
-    protected void swap(int[] list1, int[] list2, int index1, int index2) {
-        int tempx = list1[index1];
-        int tempy = list2[index1];
-        list1[index1] = list1[index2];
-        list2[index1] = list2[index2];
-        list1[index2] = tempx;
-        list2[index2] = tempy;
-    }
 
     /**
      * Determines the distance between two points
@@ -568,7 +491,6 @@ public abstract class Java1 extends JFrame
      */
     protected void play(String filename)
             throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        
         
         new Thread(new Runnable() {
             @Override
