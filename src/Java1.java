@@ -593,26 +593,37 @@ public abstract class Java1 extends JFrame
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
                 keyUp = true;
+                break;
             case KeyEvent.VK_DOWN:
                 keyDown = true;
+                break;
             case KeyEvent.VK_LEFT:
                 keyLeft = true;
+                break;
             case KeyEvent.VK_RIGHT:
                 keyRight = true;
+                break;
             case KeyEvent.VK_W:
                 keyW = true;
+                break;
             case KeyEvent.VK_Z:
                 keyZ = true;
+                break;
             case KeyEvent.VK_A:
                 keyA = true;
+                break;
             case KeyEvent.VK_S:
                 keyS = true;
+                break;
             case KeyEvent.VK_D:
                 keyD = true;
+                break;
             case KeyEvent.VK_SPACE:
                 keySpace = true;
+                break;
             case KeyEvent.VK_ENTER:
                 keyEnter = true;
+                break;
         }
     }
 
@@ -622,26 +633,37 @@ public abstract class Java1 extends JFrame
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
                 keyUp = false;
+                break;
             case KeyEvent.VK_DOWN:
                 keyDown = false;
+                break;
             case KeyEvent.VK_LEFT:
                 keyLeft = false;
+                break;
             case KeyEvent.VK_RIGHT:
                 keyRight = false;
+                break;
             case KeyEvent.VK_W:
                 keyW = false;
+                break;
             case KeyEvent.VK_Z:
                 keyZ = false;
+                break;
             case KeyEvent.VK_A:
                 keyA = false;
+                break;
             case KeyEvent.VK_S:
                 keyS = false;
+                break;
             case KeyEvent.VK_D:
                 keyD = false;
+                break;
             case KeyEvent.VK_SPACE:
                 keySpace = false;
+                break;
             case KeyEvent.VK_ENTER:
                 keyEnter = false;
+                break;
         }
     }
 
