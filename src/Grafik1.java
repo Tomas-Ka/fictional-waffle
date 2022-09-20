@@ -1,7 +1,4 @@
 import java.awt.Color;
-import java.io.IOException;
-
-import java1.Java1;
 
 public class Grafik1 extends Java1{
 

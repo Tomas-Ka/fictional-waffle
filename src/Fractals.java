@@ -1,8 +1,6 @@
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 
-import java1.Java1;
-
 public class Fractals extends Java1 {
 
 	private double x = 500;
