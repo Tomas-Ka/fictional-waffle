@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.io.IOException;
 
+import java1.Java1;
+
 public class Grafik1 extends Java1{
 
 	private static final long serialVersionUID = 1L;
@@ -65,9 +67,6 @@ public class Grafik1 extends Java1{
 		fillRectangle(420, 346, 60, 120, Brown); //door
 		fillTriangle(209, 287, 540, 287, 376, 176, Brown); //Roof
 		*/
-		
-		//half shaded triangle test
-		fillT(x, 300, 100, 100, 500, 200, Brown);
 		
 		/*
 		try {

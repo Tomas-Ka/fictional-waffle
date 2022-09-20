@@ -1,3 +1,4 @@
+package java1;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -449,7 +450,7 @@ public abstract class Java1 extends JFrame
     /**
      * Sets the refresh rate, or how long the program takes between every screen draw
      *
-     * @param wait the amount of time in ms to wait between every frame
+     * @param delay the amount of time in ms to wait between every frame
      */
     protected void setDelay(int delay) {
         timer.setDelay(delay);
@@ -843,19 +844,18 @@ public abstract class Java1 extends JFrame
         /**
          * Runs a series of commands, specified by letters in a string. char to commands:
          *
-         * <p>F & G : Move forward with pen
+         * <br>F and G : Move forward with pen
          *
-         * <p>f : Move forwards without pen
+         * <br>f : Move forwards without pen
          *
-         * <p>+ : turn left
+         * <br>+ : turn left
          *
-         * <p>- : turn right
+         * <br>- : turn right
          *
-         * <p>[ : push coordinates to stack (save coordinates)
+         * <br>[ : push coordinates to stack (save coordinates)
          *
-         * <p>] : pop coordinates from stack (load saved coordinates)
+         * <br>] : pop coordinates from stack (load saved coordinates)
          *
-         * <p>
          *
          * @param string a string of characters that all symbolise different commands
          * @param angle the angle which all turns should be taken as
@@ -908,7 +908,7 @@ public abstract class Java1 extends JFrame
          * the character F becomes FF, G becomes F[-G]++G-, and all other characters remain the same
          *
          * <p>For more information on LString Fractals, refer to <a
-         * href="https://en.wikipedia.org/wiki/L-system">this page</a>
+         * href="https://en.wikipedia.org/wiki/L-system">this page</a></p>
          *
          * @param axiom The original string, that gets modified by the values in rules
          * @param rules A list of In, Out; where every occurance of in becomes the out string.
