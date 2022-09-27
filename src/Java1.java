@@ -1,4 +1,3 @@
-
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -17,22 +16,16 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-// import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-// import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Stack;
-
 import javax.imageio.ImageIO;
-// import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-// import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
-// import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -450,7 +443,7 @@ public abstract class Java1 extends JFrame
     /**
      * Sets the refresh rate, or how long the program takes between every screen draw
      *
-     * @param delay the amount of time in ms to wait between every frame
+     * @param wait the amount of time in ms to wait between every frame
      */
     protected void setDelay(int delay) {
         timer.setDelay(delay);
@@ -471,6 +464,15 @@ public abstract class Java1 extends JFrame
     protected void setTextFont(Font font) {
         this.font = font;
     }
+    
+    /**
+     * Changes the default fontSize of the entire program keeping fontName and style
+     *
+     * @param fontSize the fontSize to change to
+     */
+    protected void setTextSize(int fontSize) {
+        this.font=new Font(this.font.getFontName(),this.font.getStyle(),fontSize);
+    }
 
     /**
      * Changes the default background colour of the entire program and also clears the screen
@@ -480,6 +482,27 @@ public abstract class Java1 extends JFrame
     protected void setBackGround(Color color) {
         bgColor = color;
         clear();
+    }
+    /**
+     * Changes the size of the Frame and sets the variables WIDTH, HEIGHT, width, height
+     *
+     * @param w the new WIDTH
+     * @param h the new HEIGHT
+     */
+    public void setSize(int w, int h){
+    	super.setSize(w,h);
+    	// sets the object values to the new height and width values
+    	WIDTH = w;
+    	HEIGHT = h;
+        // calculate the new size of the grahics2d component
+    	width = WIDTH - 15;
+    	height = HEIGHT - 40;
+        // creates the new image to draw and display things on
+        bi = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+        // create a new graphics2d object using the buffered image
+        g2 = (Graphics2D) bi.createGraphics();
+        // update the window
+        pane.setSize(WIDTH, HEIGHT);
     }
 
     /**
@@ -844,18 +867,19 @@ public abstract class Java1 extends JFrame
         /**
          * Runs a series of commands, specified by letters in a string. char to commands:
          *
-         * <br>F and G : Move forward with pen
+         * <p>F & G : Move forward with pen
          *
-         * <br>f : Move forwards without pen
+         * <p>f : Move forwards without pen
          *
-         * <br>+ : turn left
+         * <p>+ : turn left
          *
-         * <br>- : turn right
+         * <p>- : turn right
          *
-         * <br>[ : push coordinates to stack (save coordinates)
+         * <p>[ : push coordinates to stack (save coordinates)
          *
-         * <br>] : pop coordinates from stack (load saved coordinates)
+         * <p>] : pop coordinates from stack (load saved coordinates)
          *
+         * <p>
          *
          * @param string a string of characters that all symbolise different commands
          * @param angle the angle which all turns should be taken as
@@ -908,7 +932,7 @@ public abstract class Java1 extends JFrame
          * the character F becomes FF, G becomes F[-G]++G-, and all other characters remain the same
          *
          * <p>For more information on LString Fractals, refer to <a
-         * href="https://en.wikipedia.org/wiki/L-system">this page</a></p>
+         * href="https://en.wikipedia.org/wiki/L-system">this page</a>
          *
          * @param axiom The original string, that gets modified by the values in rules
          * @param rules A list of In, Out; where every occurance of in becomes the out string.
